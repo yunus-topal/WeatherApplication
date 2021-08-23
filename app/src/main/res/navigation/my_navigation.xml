@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/searchPageFragment"
         android:name="com.example.weatherapplication.SearchPageFragment"
-        android:label="fragment_search_page"
+        android:label="@string/search_page_label"
         tools:layout="@layout/fragment_search_page" >
         <action
             android:id="@+id/action_searchPageFragment_to_weatherForecastFragment"
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/weatherForecastFragment"
         android:name="com.example.weatherapplication.WeatherForecastFragment"
-        android:label="fragment_weather_forecast"
+        android:label="@string/weather_forecast_label"
         tools:layout="@layout/fragment_weather_forecast" >
         <argument
             android:name="location"
@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/locationsFragment"
         android:name="com.example.weatherapplication.LocationsFragment"
-        android:label="fragment_locations"
+        android:label="@string/locations_label"
         tools:layout="@layout/fragment_locations" >
         <action
             android:id="@+id/action_locationsFragment_to_weatherForecastFragment"

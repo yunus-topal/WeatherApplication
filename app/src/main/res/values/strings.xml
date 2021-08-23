@@ -6,4 +6,7 @@
     <string name="search_page_to_locations">Your search history</string>
     <string name="search_page_to_weather">Search</string>
     <string name="search_page_hint">A Location</string>
+    <string name="search_page_label">Weather Application</string>
+    <string name="weather_forecast_label">Weather Forecast</string>
+    <string name="locations_label">Recent Locations</string>
 </resources>
