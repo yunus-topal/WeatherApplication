@@ -4,9 +4,12 @@ package com.example.weatherapplication
 
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import coil.load
 import com.example.weatherapplication.databinding.FragmentWeatherForecastBinding
 import com.example.weatherapplication.network.DailyForecast
 import com.example.weatherapplication.network.WeatherApi
@@ -23,11 +26,15 @@ import kotlin.math.truncate
 private const val API_KEY = "32549338c3473dfd66f5845f84344a29"
 private const val EXCLUSIONS = "current,minutely,hourly,alerts"
 private const val UNIT = "metric"
+private const val IMAGE_URL_HEAD = "http://openweathermap.org/img/wn/"
+private const val IMAGE_URL_TAIL = "@2x.png"
+
 private var dailyResults: DailyForecast? = null
 
 class WeatherForecastViewModel : ViewModel() {
 
-    fun returnText(location: String, currentViews :List<TextView>,weekDays: List<TextView>, maxDegrees: List<TextView>, minDegrees: List<TextView>) {
+    fun returnText(location: String, currentViews :List<TextView> ,currentImage: ImageView,
+                   weekDays: List<TextView>, maxDegrees: List<TextView>, minDegrees: List<TextView>, iconViews: List<ImageView>) {
         viewModelScope.launch {
             try {
                 /*
@@ -39,6 +46,10 @@ class WeatherForecastViewModel : ViewModel() {
                 val latt : Double = String.format("%.3f", currentResult.coord.lat).toDouble()
 
                 fillCurrentWeather(currentResult,currentViews)
+
+                val currentIconUrl = IMAGE_URL_HEAD + currentResult.weather[0].icon + IMAGE_URL_TAIL
+                val currentIconUri = currentIconUrl.toUri().buildUpon().scheme("https").build()
+                currentImage.load(currentIconUri)
 
                 /*
                 DAILY RESULTS
@@ -52,7 +63,7 @@ class WeatherForecastViewModel : ViewModel() {
                 )
                 dailyResults = dailies
                 // get learn weekdays for each day
-                fillDailyWeather(weekDays, maxDegrees, minDegrees)
+                fillDailyWeather(weekDays, maxDegrees, minDegrees, iconViews)
             } catch (e: Exception) {
                 dailyResults = null
                 weekDays[0].text = "Error"
@@ -60,7 +71,7 @@ class WeatherForecastViewModel : ViewModel() {
         }
     }
 
-    private fun fillDailyWeather(weekDays: List<TextView>, maxDegrees: List<TextView>, minDegrees: List<TextView>){
+    private fun fillDailyWeather(weekDays: List<TextView>, maxDegrees: List<TextView>, minDegrees: List<TextView>, iconViews: List<ImageView>){
         if(dailyResults != null){
             // Fill weekdays
             weekDays[0].text = "Today"
@@ -75,6 +86,11 @@ class WeatherForecastViewModel : ViewModel() {
             for(i in 0..4){
                 val mindegree = truncate(dailyResults!!.daily[i].temp.night).toInt().toString() + "°"
                 minDegrees[i].text = mindegree
+            }
+            for(i in 0..4){
+                val iconUrl = IMAGE_URL_HEAD + dailyResults!!.daily[i].weather[0].icon + IMAGE_URL_TAIL
+                val iconUri = iconUrl.toUri().buildUpon().scheme("https").build()
+                iconViews[i].load(iconUri)
             }
         }
     }

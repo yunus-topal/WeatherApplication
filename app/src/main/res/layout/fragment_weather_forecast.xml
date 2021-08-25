@@ -19,11 +19,12 @@
         app:layout_constraintTop_toTopOf="parent" >
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:id="@+id/current_icon"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="48dp"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_baseline_cloud_24" />
 
         <TextView
@@ -80,10 +81,13 @@
 
         <ImageView
             android:id="@+id/weather_icon1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="150dp"
-            android:src="@drawable/ic_baseline_cloud_24" />
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="144dp"
+            android:contentDescription="@string/daily_icon_description"
+            android:src="@drawable/ic_baseline_cloud_24"
+            android:scaleType="fitXY"
+            />
 
         <TextView
             android:id="@+id/max_degree1"
@@ -128,10 +132,13 @@
 
         <ImageView
             android:id="@+id/weather_icon2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="150dp"
-            android:src="@drawable/ic_baseline_cloud_24" />
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="144dp"
+            android:contentDescription="@string/daily_icon_description"
+            android:src="@drawable/ic_baseline_cloud_24"
+            android:scaleType="fitXY"
+            />
 
         <TextView
             android:id="@+id/max_degree2"
@@ -176,10 +183,12 @@
 
         <ImageView
             android:id="@+id/weather_icon3"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="150dp"
-            android:src="@drawable/ic_baseline_cloud_24" />
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="144dp"
+            android:contentDescription="@string/daily_icon_description"
+            android:src="@drawable/ic_baseline_cloud_24"
+            android:scaleType="fitXY"/>
 
         <TextView
             android:id="@+id/max_degree3"
@@ -225,10 +234,12 @@
 
         <ImageView
             android:id="@+id/weather_icon4"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="150dp"
-            android:src="@drawable/ic_baseline_cloud_24" />
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="144dp"
+            android:contentDescription="@string/daily_icon_description"
+            android:src="@drawable/ic_baseline_cloud_24"
+            android:scaleType="fitXY"/>
 
         <TextView
             android:id="@+id/max_degree4"
@@ -273,10 +284,12 @@
 
         <ImageView
             android:id="@+id/weather_icon5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="150dp"
-            android:src="@drawable/ic_baseline_cloud_24" />
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="144dp"
+            android:contentDescription="@string/daily_icon_description"
+            android:src="@drawable/ic_baseline_cloud_24"
+            android:scaleType="fitXY"/>
 
         <TextView
             android:id="@+id/max_degree5"
