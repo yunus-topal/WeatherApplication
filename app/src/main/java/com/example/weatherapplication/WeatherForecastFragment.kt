@@ -5,16 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import com.example.weatherapplication.databinding.FragmentWeatherForecastBinding
-import com.example.weatherapplication.network.WeatherApi
-import kotlinx.coroutines.launch
-import java.lang.Exception
+import android.view.View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION
+import android.widget.TextView
 
 
 private const val WEATHER_LOCATION = "location"
+private const val WEEKDAY_TAG = "weekday"
+private const val MAX_DEGREE_TAG = "maxdegree"
+private const val MIN_DEGREE_TAG = "mindegree"
 
 /**
  * A simple [Fragment] subclass.
@@ -42,10 +42,25 @@ class WeatherForecastFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentWeatherForecastBinding.inflate(inflater,container,false)
 
+
+        val weekdayViews: ArrayList<View> = ArrayList()
+        binding.root.findViewsWithText(weekdayViews, WEEKDAY_TAG, FIND_VIEWS_WITH_CONTENT_DESCRIPTION)
+        val textWeekdayViews: ArrayList<TextView> = weekdayViews as ArrayList<TextView>
+
+        val maxDegreeViews: ArrayList<View> = ArrayList()
+        binding.root.findViewsWithText(maxDegreeViews, MAX_DEGREE_TAG, FIND_VIEWS_WITH_CONTENT_DESCRIPTION)
+        val textMaxDegreeViews: ArrayList<TextView> = maxDegreeViews as ArrayList<TextView>
+
+        val minDegreeViews: ArrayList<View> = ArrayList()
+        binding.root.findViewsWithText(minDegreeViews, MIN_DEGREE_TAG, FIND_VIEWS_WITH_CONTENT_DESCRIPTION)
+        val textMinDegreeViews: ArrayList<TextView> = minDegreeViews as ArrayList<TextView>
+
         val myButton = binding.button
-        viewModel.returnText(location!!, binding)
+        viewModel.returnText(location!!, myButton ,textWeekdayViews,textMaxDegreeViews,textMinDegreeViews)
+
         return binding.root
     }
+
 
 
 

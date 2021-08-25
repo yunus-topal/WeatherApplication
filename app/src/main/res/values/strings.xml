@@ -11,4 +11,7 @@
     <string name="locations_label">Recent Locations</string>
     <string name="unknown_degree">\??</string>
     <string name="unknown_day">Fetching...</string>
+    <string name="weekday_description">weekday</string>
+    <string name="max_degree_description">maxdegree</string>
+    <string name="min_degree_description">mindegree</string>
 </resources>

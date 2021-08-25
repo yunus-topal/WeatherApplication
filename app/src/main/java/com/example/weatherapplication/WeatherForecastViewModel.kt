@@ -2,6 +2,9 @@ package com.example.weatherapplication
 
 
 
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapplication.databinding.FragmentWeatherForecastBinding
@@ -13,6 +16,7 @@ import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
+import kotlin.math.min
 import kotlin.math.truncate
 
 private const val API_KEY = "32549338c3473dfd66f5845f84344a29"
@@ -21,10 +25,9 @@ private const val UNIT = "metric"
 private var dailyResults: DailyForecast? = null
 class WeatherForecastViewModel : ViewModel() {
 
-    fun returnText(location: String, binding: FragmentWeatherForecastBinding) {
+    fun returnText(location: String, myButton: Button, weekDays: List<TextView>, maxDegrees: List<TextView>, minDegrees: List<TextView>) {
         viewModelScope.launch {
             try {
-                val myButton = binding.button
                 //get current result only
                 val currentResult =
                     WeatherApi.retrofitService.getWeather(location = location, key = API_KEY, unit = UNIT)
@@ -42,22 +45,31 @@ class WeatherForecastViewModel : ViewModel() {
                 )
                 dailyResults = dailies
                 // get learn weekdays for each day
-                fillDayViews(binding)
+                fillDayTextViews(weekDays, maxDegrees, minDegrees)
             } catch (e: Exception) {
-                val myButton = binding.button
                 dailyResults = null
-                binding.weekday.text = "Error"
+                weekDays[0].text = "Error"
             }
         }
     }
 
-    fun fillDayViews(binding: FragmentWeatherForecastBinding){
+    private fun fillDayTextViews(weekDays: List<TextView>, maxDegrees: List<TextView>, minDegrees: List<TextView>){
         if(dailyResults != null){
-            binding.weekday.text = getDateTime(dailyResults!!.daily[0].dt.toString())
-            binding.maxDegree.text = truncate(dailyResults!!.daily[0].temp.max).toInt().toString()
-            binding.minDegree.text = truncate(dailyResults!!.daily[0].temp.min).toInt().toString()
+            // Fill weekdays
+            for(i in 0..4){
+                weekDays[i].text = getDateTime(dailyResults!!.daily[i].dt.toString())
+            }
+            // Fill max degrees
+            for(i in 0..4){
+                maxDegrees[i].text = truncate(dailyResults!!.daily[i].temp.day).toInt().toString()
+            }
+            for(i in 0..4){
+                minDegrees[i].text = truncate(dailyResults!!.daily[i].temp.night).toInt().toString()
+            }
         }
     }
+
+
     private fun getDateTime(s: String): String? {
         try {
             val sdf = SimpleDateFormat("EEEE")
