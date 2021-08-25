@@ -9,4 +9,6 @@
     <string name="search_page_label">Weather Application</string>
     <string name="weather_forecast_label">Weather Forecast</string>
     <string name="locations_label">Recent Locations</string>
+    <string name="unknown_degree">\??</string>
+    <string name="unknown_day">Fetching...</string>
 </resources>

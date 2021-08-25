@@ -31,7 +31,8 @@ interface WeatherApiService {
     @GET("data/2.5/weather")
     suspend fun getWeather(
         @Query("q") location: String,
-        @Query("appid") key: String
+        @Query("appid") key: String,
+        @Query("units") unit: String
     ) : WeatherForecast
 
     @GET("data/2.5/onecall")
@@ -39,7 +40,8 @@ interface WeatherApiService {
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
         @Query("exclude") exclusion: String,
-        @Query("appid") key: String
+        @Query("appid") key: String,
+        @Query("units") unit: String
     ): DailyForecast
 }
 

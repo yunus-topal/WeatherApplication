@@ -43,7 +43,7 @@ class WeatherForecastFragment : Fragment() {
         _binding = FragmentWeatherForecastBinding.inflate(inflater,container,false)
 
         val myButton = binding.button
-        viewModel.returnText(location!!,myButton)
+        viewModel.returnText(location!!, binding)
         return binding.root
     }
 
