@@ -28,8 +28,8 @@ class WeatherForecastViewModel : ViewModel() {
                 //get current result only
                 val currentResult =
                     WeatherApi.retrofitService.getWeather(location = location, key = API_KEY, unit = UNIT)
-                val long : Double = currentResult.coord.lon
-                val latt : Double = currentResult.coord.lat
+                val long : Double = String.format("%.3f", currentResult.coord.lon).toDouble()
+                val latt : Double = String.format("%.3f", currentResult.coord.lat).toDouble()
 
                 myButton.text = currentResult.name
 
