@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.example.weatherapplication.databinding.FragmentWeatherForecastBinding
 import android.view.View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION
 import android.widget.TextView
+import org.w3c.dom.Text
 
 
 private const val WEATHER_LOCATION = "location"
@@ -39,9 +40,14 @@ class WeatherForecastFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        //TODO
+        // do not forget to set weather icons
+
         // Inflate the layout for this fragment
         _binding = FragmentWeatherForecastBinding.inflate(inflater,container,false)
 
+        val currentViews = listOf<TextView>(binding.currentTitle,binding.currentDegree,binding.currentDescription)
 
         val weekdayViews: ArrayList<View> = ArrayList()
         binding.root.findViewsWithText(weekdayViews, WEEKDAY_TAG, FIND_VIEWS_WITH_CONTENT_DESCRIPTION)
@@ -55,8 +61,7 @@ class WeatherForecastFragment : Fragment() {
         binding.root.findViewsWithText(minDegreeViews, MIN_DEGREE_TAG, FIND_VIEWS_WITH_CONTENT_DESCRIPTION)
         val textMinDegreeViews: ArrayList<TextView> = minDegreeViews as ArrayList<TextView>
 
-        val myButton = binding.button
-        viewModel.returnText(location!!, myButton ,textWeekdayViews,textMaxDegreeViews,textMinDegreeViews)
+        viewModel.returnText(location!!,currentViews ,textWeekdayViews,textMaxDegreeViews,textMinDegreeViews)
 
         return binding.root
     }
