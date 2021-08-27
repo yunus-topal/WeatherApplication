@@ -10,6 +10,8 @@ import com.example.weatherapplication.databinding.FragmentWeatherForecastBinding
 import android.view.View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
+import kotlinx.coroutines.runBlocking
 import org.w3c.dom.Text
 
 
@@ -29,6 +31,12 @@ class WeatherForecastFragment : Fragment() {
 
     private var _binding: FragmentWeatherForecastBinding? = null
     val binding get() = _binding!!
+
+    private val locationViewModel: AddLocationViewModel by activityViewModels {
+        AddLocationViewModelFactory(
+            (activity?.application as WeatherForecastApplication).database.locationDao()
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,8 +74,14 @@ class WeatherForecastFragment : Fragment() {
         binding.root.findViewsWithText(dailyIconViews, DAILY_ICON_TAG, FIND_VIEWS_WITH_CONTENT_DESCRIPTION)
         val imageIconViews: ArrayList<ImageView> = dailyIconViews as ArrayList<ImageView>
 
-        viewModel.returnText(location!!, currentViews, binding.currentIcon, textWeekdayViews, textMaxDegreeViews, textMinDegreeViews, imageIconViews)
 
+        val isValid: Boolean = runBlocking {
+            viewModel.returnText(location!!, currentViews, binding.currentIcon, textWeekdayViews, textMaxDegreeViews, textMinDegreeViews, imageIconViews)
+        }
+
+        if(isValid){
+            locationViewModel.addNewItem(location!!)
+        }
         return binding.root
     }
 
