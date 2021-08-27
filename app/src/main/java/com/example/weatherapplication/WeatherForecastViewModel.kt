@@ -33,10 +33,9 @@ private var dailyResults: DailyForecast? = null
 
 class WeatherForecastViewModel : ViewModel() {
 
-    fun returnText(location: String, currentViews :List<TextView> ,currentImage: ImageView,
-                   weekDays: List<TextView>, maxDegrees: List<TextView>, minDegrees: List<TextView>, iconViews: List<ImageView>): Boolean {
+    suspend fun returnText(location: String, currentViews :List<TextView>, currentImage: ImageView): Boolean {
         var isValid = true
-        viewModelScope.launch {
+   //     viewModelScope.launch {
             try {
                 /*
                 CURRENT RESULTS
@@ -63,19 +62,18 @@ class WeatherForecastViewModel : ViewModel() {
                     unit = UNIT
                 )
                 dailyResults = dailies
-                // get learn weekdays for each day
-                fillDailyWeather(weekDays, maxDegrees, minDegrees, iconViews)
+
                 isValid = true
             } catch (e: Exception) {
                 dailyResults = null
-                weekDays[0].text = "Error"
+                currentViews[0].text = "Error"
                 isValid = false
             }
-        }
+     //   }
         return isValid
     }
 
-    private fun fillDailyWeather(weekDays: List<TextView>, maxDegrees: List<TextView>, minDegrees: List<TextView>, iconViews: List<ImageView>){
+    fun fillDailyWeather(weekDays: List<TextView>, maxDegrees: List<TextView>, minDegrees: List<TextView>, iconViews: List<ImageView>){
         if(dailyResults != null){
             // Fill weekdays
             weekDays[0].text = "Today"

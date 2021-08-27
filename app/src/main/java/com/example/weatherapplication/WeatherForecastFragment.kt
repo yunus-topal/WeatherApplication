@@ -56,6 +56,13 @@ class WeatherForecastFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentWeatherForecastBinding.inflate(inflater,container,false)
 
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         val currentViews = listOf<TextView>(binding.currentTitle,binding.currentDegree,binding.currentDescription)
 
         val weekdayViews: ArrayList<View> = ArrayList()
@@ -76,16 +83,14 @@ class WeatherForecastFragment : Fragment() {
 
 
         val isValid: Boolean = runBlocking {
-            viewModel.returnText(location!!, currentViews, binding.currentIcon, textWeekdayViews, textMaxDegreeViews, textMinDegreeViews, imageIconViews)
+            viewModel.returnText(location!!, currentViews, binding.currentIcon)
         }
 
         if(isValid){
+            viewModel.fillDailyWeather(textWeekdayViews, textMaxDegreeViews, textMinDegreeViews, imageIconViews)
             locationViewModel.addNewItem(location!!)
         }
-        return binding.root
     }
-
-
 
 
 }
