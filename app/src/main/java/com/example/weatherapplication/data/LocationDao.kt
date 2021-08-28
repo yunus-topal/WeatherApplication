@@ -7,10 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface LocationDao {
 
     @Query("SELECT * FROM location")
-    fun getLocations(): Flow<List<Location>>
-
-    @Query("SELECT * from location WHERE name = :name")
-    fun getLocation(name: String): Flow<Location>
+    suspend fun getLocations(): List<Location>
 
     @Query("DELETE FROM location WHERE  name = :name")
     suspend fun deleteLocation(name: String)

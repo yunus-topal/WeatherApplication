@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapplication.data.Location
 import com.example.weatherapplication.data.LocationDao
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 
@@ -15,10 +15,13 @@ class AddLocationViewModel(private val locationDao: LocationDao) : ViewModel() {
      * Inserts the new Item into database.
      */
     fun addNewItem(locationName: String) {
-
         val newItem = Location(locationName = locationName.lowercase())
         insertItem(newItem)
 
+    }
+
+    suspend fun getAllLocations(): List<Location> {
+        return locationDao.getLocations()
     }
 
     /**
