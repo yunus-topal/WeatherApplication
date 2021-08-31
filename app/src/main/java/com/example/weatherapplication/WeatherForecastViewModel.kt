@@ -66,7 +66,10 @@ class WeatherForecastViewModel : ViewModel() {
                 isValid = true
             } catch (e: Exception) {
                 dailyResults = null
-                currentViews[0].text = "Error"
+                currentViews[0].text = "There was an Error"
+                currentViews[1].textSize = 20F
+                currentViews[1].text = "We couldn't get the forecast"
+                currentViews[2].text = "Could you try another location?"
                 isValid = false
             }
      //   }
